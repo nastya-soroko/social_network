@@ -1,11 +1,11 @@
 SocialNetwork::Application.routes.draw do
-  get "users/new"
+  resources :users
   match '/signup',  :to => 'users#new'
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
   root :to => 'pages#home'
-  resources :users
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
