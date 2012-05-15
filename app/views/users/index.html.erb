@@ -1,35 +1,11 @@
-<h1>Listing users</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Login</th>
-    <th>Password</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Registrationdate</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<h1>All users</h1>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.surname %></td>
-    <td><%= user.login %></td>
-    <td><%= user.password %></td>
-    <td><%= user.email %></td>
-    <td><%= user.status %></td>
-    <td><%= user.registrationDate %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<%= will_paginate %>
 
-<br />
+<ul class="users">
+  <%= render @users %>
+</ul>
 
-<%= link_to 'New User', new_user_path %>
+<%= will_paginate %>
+

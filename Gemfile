@@ -4,7 +4,7 @@ gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'will_paginate'
 gem 'sqlite3'
 gem 'gravatar_image_tag'
 # gem "faker"
@@ -23,6 +23,7 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'annotate'
+  gem 'faker'
 end
 
 group :test do
