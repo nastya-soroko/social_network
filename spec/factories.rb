@@ -10,4 +10,9 @@ FactoryGirl.define do
     "person-#{n}@example.com"
   end
 
+  factory :micropost do
+    content     "Foo bar"
+    association :user
+  end
+
 end
