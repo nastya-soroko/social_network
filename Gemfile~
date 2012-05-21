@@ -4,9 +4,10 @@ gem 'rails', '3.2.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'will_paginate'
 gem 'sqlite3'
-
+gem 'gravatar_image_tag'
+# gem "faker"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,9 +22,12 @@ group :assets do
 end
 group :development do
   gem 'rspec-rails'
+  gem 'annotate'
+  gem 'faker'
 end
 
 group :test do
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'webrat'
 end

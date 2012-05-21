@@ -1,5 +1,6 @@
+require 'will_paginate/array'
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:index,:edit, :update]
+  before_filter :authenticate, :except => [:show,:new, :create]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
 
@@ -10,8 +11,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    @from_users=Array.new
+    @feed_posts =@user.microposts
+    @feed_posts.each do |x|
+      @from_users.push(User.find_by_id(x.from_id))
+    end
+    @feed_items=@feed_posts.zip(@from_users).paginate(:page => params[:page],:per_page => 10)
     @title = @user.name
+    @micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
+
   end
 
   def create
@@ -50,6 +58,13 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
+  end
+
+  def friends
+    @title = "Friends"
+    @user = User.find(params[:id])
+    @users = @user.friends.paginate(:page => params[:page])
+    render 'show_friends'
   end
 
   private

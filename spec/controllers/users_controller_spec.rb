@@ -345,4 +345,32 @@ describe UsersController do
   end
 
 
+  describe "friends page" do
+
+    describe "when not signed in" do
+
+      it "should protect 'following'" do
+        get :friends, :id => 1
+        response.should redirect_to(signin_path)
+      end
+
+    end
+
+    describe "when signed in" do
+
+      before(:each) do
+        @user = test_sign_in(FactoryGirl.create(:user))
+        @other_user = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
+        @user.make_friends!(@other_user)
+      end
+
+      it "should show user friends" do
+        get :friends, :id => @user
+        response.should have_selector("a", :href => user_path(@other_user),
+                                      :content => @other_user.name)
+      end
+
+    end
+  end
+
 end

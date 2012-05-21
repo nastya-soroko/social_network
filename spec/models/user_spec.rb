@@ -192,6 +192,47 @@ describe User do
 
   end
 
+  describe "relationships" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+      @friend = FactoryGirl.create(:user)
+    end
+
+    it "should have a relationships method" do
+      @user.should respond_to(:relationships)
+    end
+
+    it "should have a friends? method" do
+      @user.should respond_to(:friends?)
+    end
+
+    it "should have a make_friends! method" do
+      @user.should respond_to(:make_friends!)
+    end
+
+    it "should be friend of another user" do
+      @user.make_friends!(@friend)
+      @user.should be_friends(@friend)
+    end
+
+    it "should include the friend in the friends array" do
+      @user.make_friends!(@friend)
+      @user.friends.should include(@friend)
+    end
+
+    it "should have an destroy_friendship! method" do
+      @friend.should respond_to(:destroy_friendship!)
+    end
+
+    it "should destroy friendship between user" do
+      @user.make_friends!(@friend)
+      @user.destroy_friendship!(@friend)
+      @user.should_not be_friends(@friend)
+    end
+
+  end
+
 
 end
 

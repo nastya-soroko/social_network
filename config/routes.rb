@@ -4,7 +4,12 @@ SocialNetwork::Application.routes.draw do
 
   resources :microposts, :only => [:create, :destroy]
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :users
+  resources :users do
+    member do
+      get :friends
+    end
+  end
+  resources :relationships, :only => [:create, :destroy]
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

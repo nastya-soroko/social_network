@@ -9,6 +9,18 @@ module SessionsHelper
     self.current_user = nil
   end
 
+  def remember_view_user(user)
+    self.view_user=user
+  end
+
+  def view_user=(user)
+    @view_user=user
+  end
+
+  def view_user
+    @view_user #||= @current_user
+  end
+
   def current_user=(user)
     @current_user = user
   end

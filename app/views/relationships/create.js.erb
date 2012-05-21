@@ -1,0 +1,3 @@
+$("#friendship_form").html("<%= escape_javascript(render('users/destroy_friendship')) %>")
+$("#friends").html('<%= "#{@user.friends.count} friends" %>')
+

@@ -217,6 +217,10 @@ table.microposts tr td.micropost span.timestamp {
     color: #666;
 }
 
+table.microposts tr td.micropost span.content {
+    word-wrap: break-word;
+}
+
 div.user_info img {
     padding-right: 0.1em;
 }

@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
   has_many :microposts, :dependent => :destroy
+  has_many :relationships, :foreign_key => "user_friend_id",
+           :dependent => :destroy
+  has_many :friends, :through => :relationships
+
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, :presence => true,
@@ -21,11 +25,6 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
 
-  def feed
-    # Will be changed
-    Micropost.where("user_id = ?", id)
-  end
-
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil  if user.nil?
@@ -35,6 +34,21 @@ class User < ActiveRecord::Base
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
+  end
+
+  def friends?(friend)
+    relationships.find_by_friend_id(friend)
+  end
+
+  def make_friends!(friend)
+    relationships.create!(:friend_id => friend.id)
+    user=User.find_by_id(friend.id)
+    user.relationships.create!(:friend_id => id)
+  end
+
+  def destroy_friendship!(friend)
+    relationships.find_by_friend_id(friend).destroy
+    friend.relationships.find_by_friend_id(self).destroy
   end
 
   private
