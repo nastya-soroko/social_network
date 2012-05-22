@@ -23,10 +23,11 @@ class UsersController < ApplicationController
   end
 
   def create
+
     @user = User.new(params[:user])
     if @user.save
       sign_in @user
-      flash[:success] = "Welcome to the SocialNetwork!"
+      flash[:success] = "The confirmation was sended!"
       redirect_to @user
     else
       @title = "Sign up"

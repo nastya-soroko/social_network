@@ -11,11 +11,11 @@
       Posted <%= time_ago_in_words(feed_item[0].created_at) %> ago.
     </span>
     <% if current_user?(feed_item[0].user) %>
-      <span>
-        <%= link_to "delete",feed_item[0], :method => :delete,
+    <span class="delete_post">
+        <%= link_to "delete",feed_item[0], :remote=>true, :method => :delete,
                     :confirm => "You sure?",
                     :title => feed_item[0].content %>
-      </span>
+    </span>
   <% end %>
   </td>
 

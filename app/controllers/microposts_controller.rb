@@ -4,9 +4,16 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost  = current_user.microposts.build(params[:micropost])
+    @feed_items=[[@micropost, current_user]]
     if @micropost.save
-      flash[:success] = "Micropost created"
-      redirect_to @micropost.user
+
+      respond_to do |format|
+        format.html  do
+          flash[:success] = "Micropost created"
+          redirect_to @micropost.user
+         end
+        format.js
+      end
     else
       @feed_items = []
       render 'pages/home'
@@ -15,7 +22,10 @@ class MicropostsController < ApplicationController
 
   def destroy
       @micropost.destroy
-      redirect_back_or current_user
+      respond_to do |format|
+        format.html { redirect_back_or current_user }
+        format.js
+      end
   end
 
   private

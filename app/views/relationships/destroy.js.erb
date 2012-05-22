@@ -1,2 +1,2 @@
-$("#friendship_form").html("<%= escape_javascript(render('users/make_friends')) %>")
-$("#friends").html('<%= "#{@user.friends.count} friends" %>')
+$("#friendship_form").html("<%= escape_javascript(render('users/make_friends')) %>")  ;
+$("#friends").html('<%= "#{pluralize(@user.friends.count,"friend")}" %>') ;

@@ -7,6 +7,7 @@ SocialNetwork::Application.routes.draw do
   resources :users do
     member do
       get :friends
+      get :microposts
     end
   end
   resources :relationships, :only => [:create, :destroy]

@@ -16,6 +16,11 @@
   </tr>
 </table>
 
+<script type="text/javascript">
+    $("table .micropost .delete_post a").live('click', function(event){
+        $(this).parent().parent().parent().remove();
+    })
+</script>
 
 
 
