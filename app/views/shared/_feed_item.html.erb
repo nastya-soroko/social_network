@@ -10,10 +10,10 @@
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item[0].created_at) %> ago.
     </span>
-    <% if current_user?(feed_item[0].user) %>
+    <% if current_user?(feed_item[0].user)||current_user.admin? %>
     <span class="delete_post">
-        <%= link_to "delete",feed_item[0], :remote=>true, :method => :delete,
-                    :confirm => "You sure?",
+        <%= link_to "delete",feed_item[0], :remote=>true ,:method => :delete, :controller => MicropostsController,
+                    :confirm => "You really want it?",
                     :title => feed_item[0].content %>
     </span>
   <% end %>

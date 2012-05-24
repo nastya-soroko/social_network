@@ -1,26 +1,50 @@
-<table class="profile" summary="Profile information">
-  <tr>
-    <td class="main">
-      <% if (current_user.friends?(@user))||(current_user==@user)%>
-      <h1 class="micropost">Write message</h1>
-      <%= render 'shared/micropost_form' %>
-      <% end %>
-      <% unless @user.microposts.empty? %>
-          <%= render 'shared/feed' %>
-      <% end %>
-    </td>
-    <td class="sidebar round">
-      <%= render 'shared/user_info' %>
-      <%= render 'friendship_form' if signed_in? %>
-    </td>
-  </tr>
-</table>
+<% if @user.is_blocked? %>
+    <div class="home_page round">
+      Account is blocked!
+    </div>
+<% else %>
 
-<script type="text/javascript">
-    $("table .micropost .delete_post a").live('click', function(event){
-        $(this).parent().parent().parent().remove();
-    })
-</script>
+    <div class="profile" summary="Profile information">
+      <div class="main round">
+        <% if (current_user.friends?(@user))||(current_user==@user) %>
+            <h1 class="micropost">Write message</h1>
+            <%= render 'shared/micropost_form' %>
+        <% end %>
+        <% unless @user.microposts.empty? %>
+            <%= render 'shared/feed' %>
+        <% end %>
+      </div>
+      <%= render 'shared/sidebar' %>
+    </div>
+
+    <script type="text/javascript">
+        $("table .micropost .delete_post a").live('click', function (e) {
+            (this).parent().parent().parent().remove();
+        });
+        $("div.status a").live('click', function (e) {
+          var myStatus = $("div.status a").text();
+          $("div.status a").hide();
+          var myBox=$(document.createElement('input'));
+          var myButton=$(document.createElement('button')).attr('value',myStatus);
+          $("div.status").append(myBox);
+          $("div.status").append(myButton);
+          $(myButton).live('click', function(e){
+            var newStatus=$(myBox).val();
+            $(myButton).remove();
+            $(myBox).remove();
+            $("div.status a").text(newStatus);
+            $("div.status a").show();
+            $.ajax({
+              url: "<%="http://localhost:3000/users/#{@user.id}"%>",
+              type: "put",
+              dataType: "json",
+              data: {status:newStatus}
+            });
+          });
+        });
+    </script>
+
+<% end %>
 
 
 

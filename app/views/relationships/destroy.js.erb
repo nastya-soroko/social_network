@@ -1,2 +1,4 @@
 $("#friendship_form").html("<%= escape_javascript(render('users/make_friends')) %>")  ;
 $("#friends").html('<%= "#{pluralize(@user.friends.count,"friend")}" %>') ;
+$("form.new_micropost").remove();
+$("h1.micropost").remove();

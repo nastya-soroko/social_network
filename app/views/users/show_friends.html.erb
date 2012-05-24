@@ -1,25 +1,18 @@
-<table summary="Information about friends">
-  <tr>
-    <td class="main">
-      <h1><%= @title %></h1>
-
-      <% unless @users.empty? %>
-          <ul class="users">
-            <%= render @users %>
-          </ul>
-          <%= will_paginate @users %>
-      <% end %>
-    </td>
-    <td class="sidebar round">
-      <strong>Name</strong> <%= @user.name %><br />
-      <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
-      <strong>Microposts</strong> <%= @user.microposts.count %>
-      <%= render 'shared/stats' %>
-      <% unless @users.empty? %>
-          <% @users.each do |user| %>
-              <%= link_to gravatar_for(user, :size => 30), user %>
-          <% end %>
-      <% end %>
-    </td>
-  </tr>
-</table>
+<div class="for_friends">
+  <% if (@user==current_user) && !@senders.empty? %>
+      <div class="friends round">
+        <h5>This peoples wants to add you to friends:</h5>
+        <ul class="users"><%= render :partial => 'shared/sender', :collection => @senders %> </ul>
+      </div>
+  <% end %>
+  <div class="friends round">
+    <h5><%= @title %></h5>
+    <% unless @friends.empty? %>
+        <ul class="users">
+          <%= render @friends %>
+        </ul>
+        <%= will_paginate @friends %>
+    <% end %>
+  </div>
+</div>
+<%= render 'shared/sidebar' %>

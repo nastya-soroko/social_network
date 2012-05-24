@@ -1,0 +1,10 @@
+<div class="for_sidebar">
+  <div class="sidebar round">
+    <%= render 'shared/user_info' %>
+  </div>
+  <% if @user.optional_fields? %>
+      <div class="sidebar round">
+        <%= render 'shared/optional_fields' %>
+      </div>
+  <% end %>
+</div>

@@ -6,7 +6,6 @@ class MicropostsController < ApplicationController
     @micropost  = current_user.microposts.build(params[:micropost])
     @feed_items=[[@micropost, current_user]]
     if @micropost.save
-
       respond_to do |format|
         format.html  do
           flash[:success] = "Micropost created"
@@ -23,14 +22,14 @@ class MicropostsController < ApplicationController
   def destroy
       @micropost.destroy
       respond_to do |format|
-        format.html { redirect_back_or current_user }
+        format.html { redirect_back_or @micropost.user }
         format.js
       end
   end
 
   private
     def authorized_user
-      @micropost = current_user.microposts.find_by_id(params[:id])
+      @micropost = Micropost.find_by_id(params[:id])
       redirect_to current_user if @micropost.nil?
     end
 end

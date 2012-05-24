@@ -4,7 +4,8 @@
 }
 
 body {
-    background: #98fb98;
+    background-image: url("674402190.jpg");
+    background-attachment: fixed;
 }
 
 header {
@@ -16,13 +17,22 @@ header img {
     background: #fff;
 }
 
+div.users{
+    background: #e6e6fa;
+    padding: 1em;
+    text-align: center;
+}
+
+
+div.users span.list{
+    text-align: left;
+}
 section {
 
     align: center;
     margin-top: 1em;
     font-size: 120%;
-    padding: 20px;
-    background: #fff;
+    background: none;
 }
 
 section h1 {
@@ -42,15 +52,24 @@ a:hover {
 a:visited {
     color: #069;
 }
-nav {
-    float: right;
-}
+
 
 nav {
-    background-color: white;
+    background-color: #e6e6fa;
     padding: 0 0.7em;
-    white-space: nowrap;
+    white-space: normal;
+    color: #4169e1;
 }
+
+header nav ul{
+
+}
+header nav {
+    float: none;
+    height: 50px;
+    text-align: left;
+}
+
 
 nav ul {
     margin: 0;
@@ -60,21 +79,45 @@ nav ul {
 nav ul li {
     list-style-type: none;
     display: inline-block;
-    padding: 0.2em 0;
+    padding: 0.5em 0;
+    height: 40px
 }
+nav ul li.name{
+   font-style: oblique;
+   background: #4169e1;
+   color: #ffffff;
+   font-size: 20px;
+   font-weight: bold;
+    height: 25px;
+    margin: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
 
+}
 nav ul li a {
-    padding: 0 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    width: 60px;
+    height: 40px;
+    color: #4169e1;
+    font-size: 15px;
     font-weight: bold;
+    padding: 0 5px;
 }
 
 nav ul li a:visited {
-    color: #09c;
+    color: #4169e1;
 }
+
 
 nav ul li a:hover {
     text-decoration: underline;
+
 }
+
+
 a.signup_button {
     margin-left: auto;
     margin-right: auto;
@@ -82,7 +125,7 @@ a.signup_button {
     text-align: center;
     width: 190px;
     color: #fff;
-    background: #006400;
+    background: #3cb371;
     font-size: 100%;
     font-weight: bold;
     padding: 20px;
@@ -104,34 +147,88 @@ footer nav {
     float: none;
 }
 
-table.profile {
+div.profile {
     width: 100%;
     margin-bottom: 0;
+
 }
 
-td.main {
+div.main {
     width: 70%;
     padding: 1em;
+    margin-left: 0;
+    vertical-align: top;
+    background: #fff;
+    float: right;
+
 }
 
-td.sidebar {
-    width: 30%;
-    padding: 1em;
+div.for_friends{
+    width: 70%;
+    margin-left: 0;
     vertical-align: top;
-    background: #ffc;
+    background: none;
+    float: right;
+}
+
+div.friends {
+    padding: 1em;
+    margin-bottom: 1em;
+    margin-right: 0;
+    vertical-align: top;
+    background: #ffffff ;
+}
+
+
+
+
+div.for_sidebar{
+    width: 25%;
+    float:left;
+    background: none;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    margin-right: 0;
+    vertical-align: top;
+}
+
+div.sidebar {
+
+    padding: 1em;
+    margin-bottom: 1em;
+    margin-right: 0;
+    vertical-align: top;
+    background: #f0f8ff;
+ }
+
+.sidebar .property{
+    font-style: italic;
+    color: #4169e1;
+}
+
+div.home_page{
+    background: #e6e6fa;
+    padding: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-style: oblique;
+}
+div.home_page h1{
+    color: #4169e1;
+}
+div.home_page h3{
+    color: #4169e1;
 }
 
 .profile img.gravatar {
     border: 1px solid #999;
     margin-bottom: -15px;
 }
-div.field, div.actions {
-    margin-bottom: 10px;
-}
+
 .field_with_errors {
     margin-top: 10px;
     padding: 2px;
-    background-color: red;
+    background-color: #b22222;
     display: table;
 }
 
@@ -221,16 +318,29 @@ table.microposts tr td.micropost span.content {
     word-wrap: break-word;
 }
 
-div.user_info img {
+.user_info img {
     padding-right: 0.1em;
+    padding-top: 0;
 }
 
 div.user_info a {
     text-decoration: none;
 }
 
-div.user_info span.user_name {
-    position: absolute;
+
+span.user_name{
+    font-size: 20px;
+    color : #000000;
+}
+
+div.info_friends{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+div.status{
+    font-style: italic;
+    padding-bottom: 1em;
 }
 
 div.user_info span.microposts {
@@ -245,3 +355,14 @@ form.new_micropost textarea {
     height: 4em;
     margin-bottom: 0;
 }
+form.edit_user textarea{
+    height: 5em;
+    width: 252px;
+}
+
+form.new_user textarea{
+    height: 5em;
+    width: 252px;
+}
+
+

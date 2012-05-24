@@ -1,0 +1,52 @@
+<%= form_for(@user) do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+ <div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
+</div>
+<div class="field">
+  <%= f.label :password %><br />
+  <%= f.password_field :password %>
+</div>
+<div class="field">
+  <%= f.label :password_confirmation, "Confirmation" %><br />
+  <%= f.password_field :password_confirmation %>
+</div>
+<h3>You can add some optional information about yourself here</h3>
+<div class="field">
+  <%= f.label :data_of_burn, "Date of birth" %><br />
+  <%= f.date_select  :data_of_burn, :include_blank=> true  %>
+</div>
+<div class="field">
+  <%= f.label :gender %><br />
+  <%= f.select  :gender, options_for_select(["male","female"]),:include_blank => true%>
+
+</div>
+
+<div class="field">
+  <%= f.label :phone %><br />
+  <%= f.telephone_field :phone %>
+</div>
+<div class="field">
+  <%= f.label :city %><br />
+  <%= f.text_field :city %>
+</div>
+<div class="field">
+  <%= f.label :about, "About yourself" %><br />
+  <%= f.text_area :about %>
+</div>
+    <% if signed_in? %>
+        <div class="actions">
+          <%= f.submit "Update" %>
+        </div>
+    <% else %>
+        <div class="actions">
+          <%= f.submit "Sign up" %>
+        </div>
+    <% end %>
+
+<% end %>

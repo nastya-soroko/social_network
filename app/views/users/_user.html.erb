@@ -1,8 +1,13 @@
 <li>
   <%= gravatar_for user, :size => 30 %>
   <%= link_to user.name, user %>
-  <% if current_user.admin? %>
-      | <%= link_to "delete", user, :method => :delete, :confirm => "You sure?",
-                    :title => "Delete #{user.name}" %>
+  <% if current_user.admin?&&user!=current_user %>
+      <% if user.blocked? %>
+      | <%= link_to "unblock", user, :method => :delete,:confirm => "You sure?",
+                     :title => "Unlock #{user.name}" %>
+      <% else%>
+      | <%= link_to "block", user, :method => :delete,:confirm => "You sure?",
+                    :title => "Block #{user.name}" %>
+      <% end %>
   <% end %>
 </li>

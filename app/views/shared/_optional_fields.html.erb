@@ -1,0 +1,34 @@
+<% if @user.data_of_burn? %>
+  <div>
+    <label>Data of birth:</label>
+    <p class="property"><%= @user.data_of_burn %>  </p>
+  </div>
+<% end %>
+
+<% if @user.gender? %>
+    <div>
+      <label>Gender:</label>
+      <p class="property"><%= @user.gender %> </p>
+    </div>            
+<% end %>
+
+<% if @user.phone? %>
+    <div>
+      <label>Phone number:</label>
+      <p class="property"><%= @user.phone %> </p>
+    </div>
+<% end %>
+
+<% if @user.city? %>
+    <div>
+      <label>City:</label>
+      <p class="property"><%= @user.city %> </p>
+    </div>
+<% end %>
+
+<% if @user.about? %>
+    <div>
+      <label>About myself:</label>
+      <p class="property"><%= @user.about %></p>
+    </div>
+<% end %>

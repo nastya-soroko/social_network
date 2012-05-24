@@ -3,7 +3,11 @@
       <% if current_user.friends?(@user) %>
           <%= render 'destroy_friendship' %>
       <% else %>
-          <%= render 'make_friends' %>
+          <% if current_user.send_request?(@user) %>
+            <p>You had send request to this user.</p>
+          <% else %>    
+            <%= render 'make_friends' %>
+          <% end %>
       <% end %>
     </div>
 <% end %>

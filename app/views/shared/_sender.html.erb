@@ -1,0 +1,17 @@
+<li>
+  <%= gravatar_for sender, :size => 30 %>
+  <%= link_to sender.name, sender %>
+
+  <%= form_for current_user.relationships.build(:friend_id=>sender.id) do |f| %>
+      <%= f.hidden_field :friend_id %>
+     <%= f.submit "Confirm" %>
+  <% end %>
+
+  <%= form_for current_user.requests.find_by_user_from_id(sender),
+               :html => { :method => :delete } do |f| %>
+    <%= f.submit "Refuse" %>
+  <% end %>
+
+</li>
+
+

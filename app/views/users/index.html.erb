@@ -1,11 +1,11 @@
-
-<h1>All users</h1>
-
-<%= will_paginate %>
-
-<ul class="users">
-  <%= render @users %>
-</ul>
-
-<%= will_paginate %>
+<div class="users round">
+    <h1>All users</h1>
+    <span class="list" >
+        <%= will_paginate %>
+        <ul class="users">
+            <%= render @users %>
+        </ul>
+        <%= will_paginate %>
+    </span>
+</div>
 

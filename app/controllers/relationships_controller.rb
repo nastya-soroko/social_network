@@ -4,8 +4,9 @@ class RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:relationship][:friend_id])
     current_user.make_friends!(@user)
+    current_user.remove_request!(@user)
     respond_to do |format|
-      format.html { redirect_to @user }
+      format.html {  redirect_to @user}
       format.js
     end
   end

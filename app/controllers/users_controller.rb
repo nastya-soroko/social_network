@@ -16,10 +16,10 @@ class UsersController < ApplicationController
     @feed_posts.each do |x|
       @from_users.push(User.find_by_id(x.from_id))
     end
-    @feed_items=@feed_posts.zip(@from_users).paginate(:page => params[:page],:per_page => 10)
+    @feed_items=@feed_posts.zip(@from_users)
     @title = @user.name
     @micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
-
+    @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
   end
 
   def create
@@ -41,30 +41,45 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated."
-      redirect_to @user
-    else
-      @title = "Edit user"
-      render 'edit'
-    end
+   	respond_to do |format|
+				format.html do
+					if @user.update_attributes(params[:user])
+						flash[:success] = "Profile updated."
+						redirect_to @user
+					else
+						@title = "Edit user"
+						render 'edit'
+					end
+				end
+				format.js do
+					@user.update_attribute(:status,params[:status])
+				end
+      end
+
   end
 
   def index
     @title = "All users"
-    @users = User.paginate(:page=>params[:page])
+    @users = User.paginate(:page=>params[:page],:per_page=>10)
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    user=User.find(params[:id])
+    if user.blocked?
+      user.update_attribute(:blocked,false)
+      flash[:success] = "User was unblocked."
+    else
+      user.update_attribute(:blocked,true)
+      flash[:success] = "User was blocked."
+    end
     redirect_to users_path
   end
 
   def friends
     @title = "Friends"
     @user = User.find(params[:id])
-    @users = @user.friends.paginate(:page => params[:page])
+    @senders=@user.senders
+    @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
     render 'show_friends'
   end
 
