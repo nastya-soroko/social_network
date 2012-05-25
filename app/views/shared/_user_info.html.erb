@@ -15,13 +15,12 @@
         <% if @user.status? %>
             <% text=@user.status %>
         <% else %>
-            <% text= "Change status" %>
+            <% text="Change status" %>
         <% end %>
         <%= link_to "#{text}",{:id=>current_user.id}, :remote=>true %>
-
     <% else %>
         <% if @user.status? %>
-            @user.status
+            <%= @user.status %>
         <% end %>
     <% end %>
   </div>

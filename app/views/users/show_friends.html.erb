@@ -2,17 +2,18 @@
   <% if (@user==current_user) && !@senders.empty? %>
       <div class="friends round">
         <h5>This peoples wants to add you to friends:</h5>
-        <ul class="users"><%= render :partial => 'shared/sender', :collection => @senders %> </ul>
+        <ul class="senders"><%= render :partial => 'shared/sender', :collection => @senders %> </ul>
       </div>
   <% end %>
+  <% unless @friends.empty? %>
   <div class="friends round">
     <h5><%= @title %></h5>
-    <% unless @friends.empty? %>
+
         <ul class="users">
           <%= render @friends %>
         </ul>
         <%= will_paginate @friends %>
-    <% end %>
   </div>
+  <% end %>
 </div>
 <%= render 'shared/sidebar' %>

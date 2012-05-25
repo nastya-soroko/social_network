@@ -2,7 +2,7 @@ require 'digest'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :data_of_burn, :gender,
+  attr_accessible :name, :email, :password, :password_confirmation, :data_of_burn, :sex,
                   :phone, :city,:about ,:status,:admin, :blocked
 
   has_many :microposts, :dependent => :destroy
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
     if data_of_burn?
       return true
     end
-    if gender?
+    if sex?
       return true
     end
     if phone?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523184231) do
+ActiveRecord::Schema.define(:version => 20120524234108) do
 
   create_table "microposts", :force => true do |t|
     t.string   "content"
@@ -54,12 +54,12 @@ ActiveRecord::Schema.define(:version => 20120523184231) do
     t.string   "salt"
     t.boolean  "admin",              :default => false
     t.date     "data_of_burn"
-    t.boolean  "gender"
     t.string   "phone"
     t.string   "city"
     t.text     "about"
     t.string   "status"
     t.boolean  "blocked",            :default => false
+    t.string   "sex"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -279,7 +279,12 @@ div.home_page h3{
 ul.users {
     margin-top: 1em;
 }
-
+ul.senders{
+    margin-top: 1em;
+}
+.senders li{
+    list-style: none
+}
 .users li {
     list-style: none;
 }
@@ -363,6 +368,26 @@ form.edit_user textarea{
 form.new_user textarea{
     height: 5em;
     width: 252px;
+}
+
+ul.sender li{
+    display: inline-block;
+}
+ul.sender li.edit_request{
+    float: left;
+}
+ul.sender li.new_relationship{
+    float: left;
+}
+ul.sender a{
+    float: left;
+}
+ul.sender img{
+    float: left;
+}
+div.status{
+    color: #4169e1;
+    word-wrap: break-word;
 }
 
 

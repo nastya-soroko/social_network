@@ -1,9 +1,9 @@
+<span id="show_microposts">
+  <%= pluralize(@user.microposts.count, "micropost") %>
+</span>
 <% unless @feed_items.empty? %>
-    <span id="show_microposts">
-        <%= pluralize(@user.microposts.count, "micropost") %>
-    </span>
-    <table class="microposts" summary="User microposts">
-      <%= render :partial => 'shared/feed_item', :collection => @feed_items %>
-    </table>
-
+<table class="microposts" summary="User microposts">
+  <%= render :partial => 'shared/feed_item', :collection => @feed_items %>
+</table>
 <% end %>
+
