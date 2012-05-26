@@ -4,10 +4,8 @@ class MicropostsController < ApplicationController
 
   def create
 		@micropost  = current_user.microposts.build(params[:micropost])
-		unless @micropost.content
-			@micropost.content=" "
-		end
-    @feed_items=[[@micropost, current_user]]
+		if @micropost.content.gsub(/[ ]*/,"")!=""||@micropost.photo.original_filename
+		@feed_items=[[@micropost, current_user]]
     if @micropost.save
       respond_to do |format|
         format.html  do
@@ -20,6 +18,8 @@ class MicropostsController < ApplicationController
       @feed_items = []
       render 'pages/home'
 		end
+		end
+
 
 
   end
