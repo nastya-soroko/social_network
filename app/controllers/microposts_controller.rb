@@ -3,7 +3,10 @@ class MicropostsController < ApplicationController
   before_filter :authorized_user, :only=>:destroy
 
   def create
-    @micropost  = current_user.microposts.build(params[:micropost])
+		@micropost  = current_user.microposts.build(params[:micropost])
+		unless @micropost.content
+			@micropost.content=" "
+		end
     @feed_items=[[@micropost, current_user]]
     if @micropost.save
       respond_to do |format|
@@ -16,7 +19,9 @@ class MicropostsController < ApplicationController
     else
       @feed_items = []
       render 'pages/home'
-    end
+		end
+
+
   end
 
   def destroy

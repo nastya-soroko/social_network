@@ -15,32 +15,49 @@
       <%= render 'shared/sidebar' %>
     </div>
 
+
     <script type="text/javascript">
         $("table .micropost .delete_post a").live('click', function (e) {
             $(this).parent().parent().parent().remove();
         });
         $("div.status a").live('click', function (e) {
-          var myStatus = $("div.status a").text();
-          $("div.status a").hide();
-          var myBox=$(document.createElement('textarea')).attr('style','width: 140px;word-wrap:break-word;height:40px;resize: none;margin-left:0;margin-bottom:0;').attr('value',myStatus);
-          var myButton=$(document.createElement('button')).attr('style','width: 50px; text:"Save";');
-          $("div.status").append(myBox);
-          $("div.status").append(myButton);
-          $(myButton).live('click', function(e){
-            var newStatus=$(myBox).val();
-            $(myButton).remove();
-            $(myBox).remove();
-            $("div.status a").text(newStatus);
-            $("div.status a").show();
-            $.ajax({
-              url: "<%="http://localhost:3000/users/#{@user.id}"%>",
-              type: "put",
-              dataType: "json",
-              data: {status:newStatus}
+            var myStatus = $("div.status a").text();
+            $("div.status a").hide();
+            var myBox = $(document.createElement('textarea')).attr('style', 'width: 140px;word-wrap:break-word;height:40px;resize: none;margin-left:0;margin-bottom:0;').attr('value', myStatus);
+            var myButton = $(document.createElement('button')).attr('style', 'width: 50px; text:"Save";');
+            $("div.status").append(myBox);
+            $("div.status").append(myButton);
+            $(myButton).live('click', function (e) {
+                var newStatus = $(myBox).val();
+                $(myButton).remove();
+                $(myBox).remove();
+                $("div.status a").text(newStatus);
+                $("div.status a").show();
+                $.ajax({
+                    url:"<%="http://localhost:3000/users/#{@user.id}"%>",
+                    type:"put",
+                    dataType:"json",
+                    data:{status:newStatus}
+                });
             });
-          });
         });
+
+        $(".micropost .image").live('click', function (e) {
+            var img=$(this).children("img").attr('alt');
+            $(".facepalm_image img").each(function(e,i){
+                if($(i).attr('alt')==img){
+                    $(i).parent().attr('style','align:center;').dialog({
+                        height: 'auto',
+                        width: 'auto',
+                        //resize: "initial",
+                        modal:true
+                    });
+                }
+            });
+        });
+
     </script>
+
 
 <% end %>
 

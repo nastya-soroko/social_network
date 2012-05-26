@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end
     @feed_items=@feed_posts.zip(@from_users)
     @title = @user.name
-    @micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
+		@micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
     @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
   end
 
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
     @user = User.new(params[:user])
     if @user.save
+			UserMailer.welcome_email(@user).deliver
       sign_in @user
       flash[:success] = "The confirmation was sended!"
       redirect_to @user

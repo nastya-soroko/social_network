@@ -360,6 +360,11 @@ form.new_micropost textarea {
     height: 4em;
     margin-bottom: 0;
 }
+
+form.new_micropost #micropost_photo{
+    display:none;
+}
+
 form.edit_user textarea{
     height: 5em;
     width: 252px;
@@ -388,6 +393,10 @@ ul.sender img{
 div.status{
     color: #4169e1;
     word-wrap: break-word;
+}
+
+.facepalm_image{
+    display: none;
 }
 
 

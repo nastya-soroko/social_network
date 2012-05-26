@@ -5,8 +5,12 @@
   <td class="micropost">
     <span class="user">
       <%= link_to feed_item[1].name, feed_item[1]%>
-    </span>
-    <span class="content"><%= feed_item[0].content %></span>
+    </span><br>
+    <div class="content"><%= feed_item[0].content %></div>
+    <%if feed_item[0].photo.original_filename %>
+    <div class="image"><%= image_tag feed_item[0].photo.url(:medium) %></div>
+    <div class="facepalm_image"><%= image_tag feed_item[0].photo.url%></div>
+    <% end %>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item[0].created_at) %> ago.
     </span>

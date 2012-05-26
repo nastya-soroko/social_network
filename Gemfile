@@ -7,6 +7,7 @@ gem 'rails', '3.2.1'
 gem 'will_paginate'
 gem 'sqlite3'
 gem 'gravatar_image_tag'
+gem 'paperclip'
 # gem "faker"
 
 # Gems used only for assets and not required
@@ -14,6 +15,7 @@ gem 'gravatar_image_tag'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+	gem 'jquery-ui-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer'

@@ -4,8 +4,21 @@
       <%= f.text_area :content %>
       <%= f.hidden_field :from_id %>
       <%= f.hidden_field :user_id %>
+      <%= f.file_field :photo %>
     </div>
     <div class="actions">
       <%= f.submit "Send" %>
+      <%= link_to "Upload",{:id=>current_user.id}, :remote=>true %>
     </div>
 <% end %>
+
+
+<script type="text/javascript">
+    $("table .micropost .delete_post a").live('click', function (e) {
+        $(this).parent().parent().parent().remove();
+    });
+    $(".new_micropost div.actions a").live('click', function (e) {
+        $('#micropost_photo').attr('style','display:block;')
+    });
+</script>
+
