@@ -1,6 +1,7 @@
+require "base64"
 require 'will_paginate/array'
 class UsersController < ApplicationController
-  before_filter :authenticate, :except => [:show,:new, :create]
+  before_filter :authenticate, :except => [:show,:new, :create,:activate]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
 
@@ -20,16 +21,23 @@ class UsersController < ApplicationController
     @title = @user.name
 		@micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
     @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
-  end
+	end
+
+	def activate
+		@user = User.find(Base64.decode64(params[:id]).to_i)
+
+		@user.update_attribute(:activated,true)
+		sign_in @user
+		redirect_to @user
+	end
 
   def create
-
     @user = User.new(params[:user])
     if @user.save
 			UserMailer.welcome_email(@user).deliver
-      sign_in @user
+      #sign_in @user
       flash[:success] = "The confirmation was sended!"
-      redirect_to @user
+      redirect_to root_path
     else
       @title = "Sign up"
       render 'new'
@@ -57,7 +65,9 @@ class UsersController < ApplicationController
 				end
       end
 
-  end
+	end
+
+
 
   def index
     @title = "All users"

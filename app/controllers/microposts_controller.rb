@@ -19,9 +19,6 @@ class MicropostsController < ApplicationController
       render 'pages/home'
 		end
 		end
-
-
-
   end
 
   def destroy

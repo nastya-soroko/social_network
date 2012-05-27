@@ -19,7 +19,7 @@
 <h3>You can add some optional information about yourself here</h3>
 <div class="field">
   <%= f.label :data_of_burn, "Date of birth" %><br />
-  <%= f.date_select  :data_of_burn, :include_blank=> true  %>
+  <%= f.date_select  :data_of_burn, :include_blank=> true ,:start_year=>1830, :end_year=>2007%>
 </div>
 <div class="field">
   <%= f.label :sex %><br />

@@ -1,8 +1,11 @@
-Welcome to  SocialNetwork.com, <%= @user.name %>
+Welcome to example.com, <%= @user.name %>
 ===============================================
 
-You have successfully signed up to SocialNetwork.com
+You have successfully signed up to example.com,
+your username is: <%= @user.name %>.
 
-To login to the site, just follow this link: <%= @url %>.
+To login to the site, just follow this link:
+<%=  url_for(:action=>'activate', :only_path=>false,:controller=>'users',:id=>@id)%>
+
 
 Thanks for joining and have a great day!

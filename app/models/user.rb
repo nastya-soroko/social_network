@@ -3,7 +3,7 @@ require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation, :data_of_burn, :sex,
-                  :phone, :city,:about ,:status,:admin, :blocked
+                  :phone, :city,:about ,:status,:admin, :blocked ,:activated
 
   has_many :microposts, :dependent => :destroy
   has_many :relationships, :foreign_key => "user_friend_id",
@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :requests,:foreign_key=>"user_id",
            :dependent =>:destroy
   has_many :senders, :through => :requests,:source => :user_from
+
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   phone_regex= /([0-9]*)/

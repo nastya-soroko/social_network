@@ -8,15 +8,16 @@ SocialNetwork::Application.routes.draw do
   resources :users do
     member do
       get :friends
-      get :senders
-    end
+			get :senders
+			get :activate
+		end
   end
   resources :relationships, :only => [:create, :destroy]
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
-  root :to => 'pages#home'
+	root :to => 'pages#home'
 
 
   # The priority is based upon order of creation:

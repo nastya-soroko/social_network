@@ -8,9 +8,11 @@
 <p>
   You have successfully signed up to Social network .<br/>
 </p>
-<p>
-  To login to the site, just follow this link: <%= @url %>.
-</p>
+<span>
+  To login to the site, just follow this link:
+  <%=  url_for(:action=>'activate', :only_path=>false,:controller=>'users',:id=>@id)%>
+
+</span>
 <p>Thanks for joining and have a great day!</p>
 </body>
 </html>

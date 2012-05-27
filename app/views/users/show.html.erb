@@ -55,6 +55,19 @@
             });
         });
     </script>
+    <script type="text/javascript" src="./../javascripts/swfobject.js"></script>
+
+    <script type="text/javascript" >
+        var a = new SWFObject('../../flash/player.swf', 'plar', '480', '360', '8');
+        a.addParam('allowscriptaccess', 'always');
+        a.addParam('allowfullscreen', 'true');
+        a.addVariable('height', '360');
+        a.addVariable('width', '480');
+        a.addVariable('file', '<%= @micropost.photo.url  %>');
+        a.write('player');
+    </script>
+
+
 
 
 <% end %>
