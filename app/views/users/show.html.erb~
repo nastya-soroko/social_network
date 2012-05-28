@@ -1,40 +1,92 @@
-<p id="notice"><%= notice %></p>
+<% if @user.is_blocked? %>
+    <div class="home_page round">
+      Account is blocked!
+    </div>
+<% else %>
 
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
+    <div class="profile" summary="Profile information">
+      <div class="main round">
+        <% if (current_user.friends?(@user))||(current_user==@user) %>
+            <h1 class="micropost">Write message</h1>
+            <%= render 'shared/micropost_form' %>
 
-<p>
-  <b>Surname:</b>
-  <%= @user.surname %>
-</p>
-
-<p>
-  <b>Login:</b>
-  <%= @user.login %>
-</p>
-
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
-
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Status:</b>
-  <%= @user.status %>
-</p>
-
-<p>
-  <b>Registrationdate:</b>
-  <%= @user.registrationDate %>
-</p>
+        <% end %>
+        <%= render 'shared/feed' %>
+      </div>
+      <%= render 'shared/sidebar' %>
+    </div>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+    <script type="text/javascript">
+
+      $(".micropost #player").load(function(e){
+          console.log($(this));
+      });
+
+
+        $("table .micropost .delete_post a").live('click', function (e) {
+            $(this).parent().parent().parent().remove();
+        });
+        $("div.status a").live('click', function (e) {
+            var myStatus = $("div.status a").text();
+            $("div.status a").hide();
+            var myBox = $(document.createElement('textarea')).attr('style', 'width: 140px;word-wrap:break-word;height:40px;resize: none;margin-left:0;margin-bottom:0;').attr('value', myStatus);
+            var myButton = $(document.createElement('button')).attr('style', 'width: 50px;').text("Save");
+            $("div.status").append(myBox);
+            $("div.status").append(myButton);
+            $(myButton).live('click', function (e) {
+                var newStatus = $(myBox).val();
+                $(myButton).remove();
+                $(myBox).remove();
+                $("div.status a").text(newStatus);
+                $("div.status a").show();
+                $.ajax({
+                    url:"<%="http://localhost:3000/users/#{@user.id}"%>",
+                    type:"put",
+                    dataType:"json",
+                    data:{status:newStatus}
+                });
+            });
+        });
+
+        $(".micropost .image").live('click', function (e) {
+            var img=$(this).children("img").attr('alt');
+            $(".facepalm_image img").each(function(e,i){
+                if($(i).attr('alt')==img){
+                    $(i).parent().attr('style','align:center;').dialog({
+                        height: 'auto',
+                        width: 'auto',
+                        modal:true
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript" src="./../javascripts/swfobject.js"></script>
+
+    <script type="text/javascript" >
+		      
+	var n=<%=@videos.count %>
+	var video;
+	for (var i=0;i<n;i++){
+        var a = new SWFObject('../../flash/player.swf', 'plar', '400', '300', '8');
+        a.addParam('allowscriptaccess', 'always');
+        a.addParam('allowfullscreen', 'true');
+        a.addVariable('height', '300');
+        a.addVariable('width', '400');
+	video="<%=@videos%>";
+        //a.addVariable('file', video);
+        a.write('player<%=@file_name%>');
+	
+       }
+
+
+    </script>
+
+
+<% end %>
+
+
+
+
+

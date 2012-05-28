@@ -9,6 +9,7 @@
         <% if (current_user.friends?(@user))||(current_user==@user) %>
             <h1 class="micropost">Write message</h1>
             <%= render 'shared/micropost_form' %>
+
         <% end %>
         <%= render 'shared/feed' %>
       </div>
@@ -17,6 +18,12 @@
 
 
     <script type="text/javascript">
+
+      $(".micropost #player").load(function(e){
+          console.log($(this));
+      });
+
+
         $("table .micropost .delete_post a").live('click', function (e) {
             $(this).parent().parent().parent().remove();
         });
@@ -58,16 +65,23 @@
     <script type="text/javascript" src="./../javascripts/swfobject.js"></script>
 
     <script type="text/javascript" >
-        var a = new SWFObject('../../flash/player.swf', 'plar', '480', '360', '8');
+		      
+	var n=<%=@videos.count %>
+	var video;
+	for (var i=0;i<n;i++){
+        var a = new SWFObject('../../flash/player.swf', 'plar', '400', '300', '8');
         a.addParam('allowscriptaccess', 'always');
         a.addParam('allowfullscreen', 'true');
-        a.addVariable('height', '360');
-        a.addVariable('width', '480');
-        a.addVariable('file', '<%= @micropost.photo.url  %>');
-        a.write('player');
+        a.addVariable('height', '300');
+        a.addVariable('width', '400');
+	video="<%=@videos%>";
+        //a.addVariable('file', video);
+        a.write('player<%=@file_name%>');
+	
+       }
+
+
     </script>
-
-
 
 
 <% end %>

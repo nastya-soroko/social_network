@@ -5,10 +5,12 @@
       <%= f.hidden_field :from_id %>
       <%= f.hidden_field :user_id %>
       <%= f.file_field :photo %>
+      <%= f.file_field :video %>
     </div>
     <div class="actions">
       <%= f.submit "Send" %>
-      <%= link_to "Upload",{:id=>current_user.id}, :remote=>true %>
+      <%= link_to "Upload photo",{:id=>current_user.id}, :remote=>true ,:class=>"photo"%>
+      <%= link_to "Upload video",{:id=>current_user.id}, :remote=>true,:class=>"video" %>
     </div>
 <% end %>
 
@@ -17,8 +19,11 @@
     $("table .micropost .delete_post a").live('click', function (e) {
         $(this).parent().parent().parent().remove();
     });
-    $(".new_micropost div.actions a").live('click', function (e) {
+    $(".new_micropost div.actions a.photo").live('click', function (e) {
         $('#micropost_photo').attr('style','display:block;')
+    });
+    $(".new_micropost div.actions a.video").live('click', function (e) {
+        $('#micropost_video').attr('style','display:block;')
     });
 </script>
 
