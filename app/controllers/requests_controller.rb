@@ -4,16 +4,15 @@ class RequestsController < ApplicationController
     @user.get_request!(current_user)
     respond_to do |format|
       format.html do
-        flash[:success] = " #{@user.name} will get you request to friends."
-        redirect_to @user
+        flash[:success] = " #{@request.user.name} will get your request to friends."
+        redirect_to @request.user
       end
-      format.js
+      format.js 
     end
   end
 
   def destroy
-    @user = Request.find(params[:id]).user_from
-    current_user.remove_request!(@user)
+    Request.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to current_user }
       format.js

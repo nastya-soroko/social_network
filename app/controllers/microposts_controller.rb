@@ -4,29 +4,25 @@ class MicropostsController < ApplicationController
 
   def create
 		@micropost  = current_user.microposts.build(params[:micropost])
-		if @micropost.content.gsub(/[ ]*/,"")!=""||@micropost.photo.original_filename||@micropost.video_file_name
-		@feed_items=[[@micropost, current_user]]
-    if @micropost.save
+		if @micropost.has_nonempty_content?&&@micropost.save
       respond_to do |format|
         format.html  do
           flash[:success] = "Micropost created"
           redirect_to @micropost.user
-         end
+        end
         format.js 
       end
     else
-      @feed_items = []
       render 'pages/home'
-		end
-		end
+		end		
   end
 
   def destroy
-      @micropost.destroy
-      respond_to do |format|
-        format.html { redirect_back_or @micropost.user }
-        format.js
-      end
+    @micropost.destroy
+    respond_to do |format|
+      format.html { redirect_back_or @micropost.user }
+      format.js
+    end
   end
 
   private

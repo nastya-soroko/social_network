@@ -1,5 +1,3 @@
-require "base64"
-require 'will_paginate/array'
 class UsersController < ApplicationController
   before_filter :authenticate, :except => [:show,:new, :create,:activate]
   before_filter :correct_user, :only => [:edit, :update]
@@ -12,29 +10,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @from_users=Array.new
-    @feed_posts =@user.microposts
-    @videos=Array.new
-    @index=Array.new
-   
-    @file_name=Array.new
-    @feed_posts.each do |x|
-    @from_users.push(User.find_by_id(x.from_id))
-			if x.video_file_name
-				@videos<<x.video.to_s
-				@file_name<<x.video_file_name
-			end
-    end
-    0.upto(@videos.size-1){|x| @index<<x}
-    @feed_items=@feed_posts.zip(@from_users)
     @title = @user.name
-		@micropost = Micropost.new(:from_id =>current_user.id,:user_id => @user.id)
-    @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
-	end
+  end
 
 	def activate
-		@user = User.find(Base64.decode64(params[:id]).to_i)
-
+		@user=User.find_with_decode(params[:id])
 		@user.update_attribute(:activated,true)
 		sign_in @user
 		redirect_to @user
@@ -59,23 +39,16 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
    	respond_to do |format|
-				format.html do
-					if @user.update_attributes(params[:user])
-						flash[:success] = "Profile updated."
-						redirect_to @user
-					else
-						@title = "Edit user"
-						render 'edit'
-					end
-				end
-				format.js do
-					@user.update_attribute(:status,params[:status])
-				end
-      end
-
+			format.html do
+				@user.update_attributes(params[:user])
+				flash[:success] = "Profile updated."
+				redirect_to @user					
+			end
+			format.js do
+				@user.update_attribute(:status,params[:status])
+			end
+    end
 	end
-
-
 
   def index
     @title = "All users"
@@ -97,8 +70,6 @@ class UsersController < ApplicationController
   def friends
     @title = "Friends"
     @user = User.find(params[:id])
-    @senders=@user.senders
-    @friends = @user.friends.paginate(:page => params[:page],:per_page=>10)
     render 'show_friends'
   end
 

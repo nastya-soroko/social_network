@@ -1,5 +1,6 @@
-<%= form_for @user.requests.build(:user_from_id=>current_user.id) do |f| %>
+<%= form_for @user.requests.build, :remote=>true do |f| %>
     <div><%= f.hidden_field :user_id %></div>
+    <div><%= f.hidden_field :user_from_id %></div>
     <div class="action"><%= f.submit "Add to friends" %></div>
 <% end %>
 

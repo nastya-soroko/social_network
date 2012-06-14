@@ -15,29 +15,7 @@ describe RelationshipsController do
     end
   end
 
-  describe "POST 'create'" do
-
-    before(:each) do
-      @user = test_sign_in(FactoryGirl.create(:user))
-      @friend = FactoryGirl.create(:user, :email => FactoryGirl.generate(:email))
-    end
-
-    it "should create a relationship" do
-      lambda do
-        post :create, :relationship => { :friend_id => @friend }
-        response.should be_redirect
-      end.should change(Relationship, :count).by(2)
-    end
-
-    it "should create a relationship using Ajax" do
-      lambda do
-        xhr :post, :create, :relationship => { :friend_id => @friend }
-        response.should be_success
-      end.should change(Relationship, :count).by(2)
-    end
-
-  end
-
+  
   describe "DELETE 'destroy'" do
 
     before(:each) do

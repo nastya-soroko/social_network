@@ -1,5 +1,5 @@
 require 'digest'
-
+require "base64"
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation, :data_of_burn, :sex,
@@ -82,22 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def optional_fields?
-    if data_of_burn?
-      return true
-    end
-    if sex?
-      return true
-    end
-    if phone?
-      return true
-    end
-    if city?
-      return true
-    end
-    if about?
-      return true
-    end
-    false
+    data_of_burn?||sex?||phone?||city?||about?      
+  end
+
+  def self.find_with_decode(id)
+    user=find(Base64.decode64(id).to_i)    
   end
 
   private

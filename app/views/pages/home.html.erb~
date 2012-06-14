@@ -1,0 +1,9 @@
+<div class="home_page round">
+<h1>Hello, this is the Social network</h1>
+<h3> You can sign in or sign up now!</h3>
+<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
+  <%=  url_for(:action=>'activate', :only_path=>false,:controller=>'users',:id=>1)%>
+</div>
+
+
+

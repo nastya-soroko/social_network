@@ -1,4 +1,4 @@
-$("table tbody").prepend("<%= escape_javascript(render :partial => 'shared/feed_item', :collection =>@feed_items ) %>" );
+$("table tbody").prepend("<%= escape_javascript(render :partial => 'shared/feed_item', :collection =>[[@micropost, current_user]] ) %>" );
 $("#show_microposts").html('<%= "#{pluralize(@micropost.user.microposts.count, "micropost")} " %>');
 $("#micropost_content").val("");
 

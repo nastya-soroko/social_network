@@ -1,3 +1,4 @@
+<% get_friends(@user) %>
 <div class="for_friends">
   <% if (@user==current_user) && !@senders.empty? %>
       <div class="friends round">
@@ -8,7 +9,6 @@
   <% unless @friends.empty? %>
   <div class="friends round">
     <h5><%= @title %></h5>
-
         <ul class="users">
           <%= render @friends %>
         </ul>

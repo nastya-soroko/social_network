@@ -2,7 +2,7 @@
   <div class="sidebar round">
     <%= render 'shared/user_info' %>
   </div>
-  <% if @user.optional_fields? %>
+  <% if @user.optional_fields?&&(current_user.friends?(@user)||(current_user==@user))%>
       <div class="sidebar round">
         <%= render 'shared/optional_fields' %>
       </div>

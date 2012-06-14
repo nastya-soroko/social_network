@@ -1,16 +1,13 @@
+require 'will_paginate/array'
 module MicropostsHelper
-  def wrap(content)
-    sanitize(raw(content.split.map{ |s| wrap_long_string(s) }.join(' ')))
+  def get_profile_items(user)
+	  @from_users=[]
+    @feed_posts=user.microposts  
+    @feed_posts.each do |x|
+      @from_users.push(User.find_by_id(x.from_id))
+    end    
+    @feed_items=@feed_posts.zip(@from_users)
+    @micropost = Micropost.new(:from_id =>current_user.id,:user_id => user.id)
+    @friends = user.friends.paginate(:page => params[:page],:per_page=>10)
   end
-
-  private
-
-  def wrap_long_string(text, max_width = 30)
-    zero_width_space = "&#8203;"
-    regex = /.{1,#{max_width}}/
-    (text.length < max_width) ? text :
-        text.scan(regex).join(zero_width_space)
-  end
-
-
 end

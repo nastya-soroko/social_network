@@ -13,7 +13,7 @@
     <% end %>
     <%if feed_item[0].video_file_name %>
     <div id="player<%=feed_item[0].video_file_name%>">
-      <%= video_tag feed_item[0].video.url,:controls=>"controls" %></div>
+      <%= video_tag feed_item[0].video.url,:controls=>"controls",:width=>350,:height=>300 %></div>
     </div>
     <% end %>
     <span class="timestamp">
